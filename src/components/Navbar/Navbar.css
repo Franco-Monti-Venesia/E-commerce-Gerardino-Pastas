@@ -1,0 +1,122 @@
+/* src/components/Navbar/Navbar.css */
+
+/* Base (desktop) */
+header {
+    background-color: #eee;
+    position: fixed;
+    width: 100%;
+    box-shadow: 0px -1px 20px rgba(146, 137, 98, 0.6);
+    z-index: 10;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    padding: 0 1rem;
+}
+
+/* Hide checkbox input always */
+.nav__check {
+    display: none;
+}
+
+/* Hamburger hidden on desktop */
+.nav__checkbtn {
+    display: none;
+}
+
+/* Logo on left */
+.nav__logo-container {
+    order: 1;
+}
+.nav__logo {
+    height: 70px;
+}
+
+/* Links centered */
+.nav__ul {
+    order: 2;
+    display: flex;
+    gap: 1.5rem;
+    flex: 1;
+    justify-content: center;
+    list-style: none;
+}
+.nav__ul li a {
+    text-decoration: none;
+    color: #928962;
+    font-size: 1.3rem;
+}
+.nav__ul li a:hover {
+    color: #b8a965;
+    transition: 0.3s;
+}
+
+/* Cart on right */
+.nav__cart-container {
+    order: 3;
+}
+.nav__cart-link {
+    position: relative;
+    font-size: 1.8rem;
+    color: #928962;
+}
+.nav__cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: #b8a965;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    /* Show hamburger */
+    .nav__checkbtn {
+        display: block;
+        order: 1;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #928962;
+    }
+
+    /* Logo centered */
+    .nav__logo-container {
+        order: 2;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    .nav__logo {
+        height: 50px;
+    }
+
+    /* Cart on right */
+    .nav__cart-container {
+        order: 3;
+    }
+
+    /* Hide links initially */
+    .nav__ul {
+        order: 4;
+        display: none;
+        position: absolute;
+        top: 90px;
+        left: 0;
+        right: 0;
+        background-color: #eee;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+    /* Show when checked */
+    #nav__check:checked ~ .nav__ul {
+        display: flex;
+    }
+}

@@ -1,0 +1,37 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 #928962;
+    transition: 0.3s;
+    width: 40%;
+    border: solid 1px #928962;
+    border-radius: 0.5rem;
+    width: 15rem;
+    height: 20rem;
+    margin: 0.1rem;
+}
+
+.card:hover {
+    zoom: 103%;
+}
+
+.card-btn{
+    padding: 1rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #b1a571;
+    cursor: pointer;
+}
+
+.card-btn:hover{
+    background-color: #bdaf73;
+}
+
+.imagen-producto {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}

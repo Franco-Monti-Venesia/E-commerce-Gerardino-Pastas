@@ -1,0 +1,10 @@
+.nav-cart {
+    font-size: 2.5rem;
+    color: #928962;
+    cursor: pointer;
+    margin-right: 2rem;
+}
+
+.nav-cart:hover {
+    color: #b1a571;
+}

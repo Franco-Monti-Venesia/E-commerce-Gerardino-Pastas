@@ -1,0 +1,27 @@
+.contador-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+}
+
+.buttons-container{
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn-modify{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-modify:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+}
