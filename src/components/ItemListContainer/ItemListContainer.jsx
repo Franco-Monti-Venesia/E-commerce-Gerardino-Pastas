@@ -7,6 +7,7 @@ import Loader from '../Loader/Loader';
 import { CartContext } from '../../context/CartContext';
 import './ItemListContainer.css';
 
+
 function ItemListContainer() {
     const [misProductos, setMisProductos] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,24 +15,28 @@ function ItemListContainer() {
     const { addItem } = useContext(CartContext);
 
     useEffect(() => {
-        const obtenerProductos = async () => {
+    const obtenerProductos = async () => {
         setLoading(true);
+        console.log(">>> Categoria recibida:", categoria);
         try {
-            const productosRef = collection(db, 'productos');
-            const consulta = categoria
+        const productosRef = collection(db, 'productos');
+        const consulta = categoria
             ? query(productosRef, where('categoria', '==', categoria))
             : productosRef;
-            const snapshot = await getDocs(consulta);
-            const productosFirebase = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setMisProductos(productosFirebase);
+        const snapshot = await getDocs(consulta);
+        console.log(">>> Docs obtenidos:", snapshot.size);
+        const productosFirebase = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        console.log(">>> Productos mapeados:", productosFirebase);
+        setMisProductos(productosFirebase);
         } catch (error) {
-            console.error('Error al obtener productos:', error);
+        console.error('Error al obtener productos:', error);
         } finally {
-            setLoading(false);
+        setLoading(false);
         }
-        };
-        obtenerProductos();
-    }, [categoria]);
+    };
+    obtenerProductos();
+}, [categoria]);
+
 
     return (
         <section className="productos">
