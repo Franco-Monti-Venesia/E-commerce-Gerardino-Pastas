@@ -3,7 +3,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { db } from '../../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { CartContext } from '../../context/CartContext';
 import Loader from '../Loader/Loader.jsx';
 import './ItemListContainer.css';
 
@@ -11,7 +10,6 @@ function ItemListContainer() {
   const [misProductos, setMisProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { categoria } = useParams();
-  const { addItem } = useContext(CartContext);
 
   useEffect(() => {
     const obtenerProductos = async () => {
@@ -42,23 +40,20 @@ function ItemListContainer() {
         <section className="productos">
           {misProductos.map((producto) => (
             <article key={producto.id} className="productos__cartas">
-              <img
-                src={producto.imageUrl}
-                alt={producto.nombre}
-                className="cartas__imagen"
-              />
-              <div className="cartas__contenido">
-                <Link to={`/detalle/${producto.id}`}>
-                  <h3 className="productos__titulo">{producto.nombre}</h3>
-                  <p className="productos__subtitulo">${producto.precio}</p>
-                </Link>
-                <button
-                  className="cartas__boton"
-                  onClick={() => addItem(producto, 1)}
-                >
-                  COMPRAR
-                </button>
-              </div>
+              <Link to={`/detalle/${producto.id}`}>
+                <img
+                  src={producto.imageUrl}
+                  alt={producto.nombre}
+                  className="cartas__imagen"
+                />
+                <h3 className="productos__titulo">{producto.nombre}</h3>
+                <p className="productos__subtitulo">${producto.precio}</p>
+              </Link>
+
+              {/* Botón de compra como link al detalle */}
+              <Link to={`/detalle/${producto.id}`} className="cartas__boton">
+                COMPRAR
+              </Link>
             </article>
           ))}
         </section>

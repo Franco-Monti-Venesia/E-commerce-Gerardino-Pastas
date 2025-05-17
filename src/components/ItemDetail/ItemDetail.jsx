@@ -1,53 +1,43 @@
-import './ItemDetail.css';
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Contador from '../Contador/Contador';
+import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
-import Notification from '../Notification/Notification';
+import './ItemDetail.css';
 
-function ItemDetail({ detalle }) {
-    const [selectedCount, setSelectedCount] = useState(1);
-    const [showNotification, setShowNotification] = useState(false);
+function ItemDetail({ producto }) {
     const { addItem } = useContext(CartContext);
+    const [cantidad, setCantidad] = useState(1);
 
-    const handleCountChange = (newCount) => setSelectedCount(newCount);
-
-    const agregarAlCarrito = () => {
-        addItem(detalle, selectedCount);
-        setShowNotification(true);
+    const handleCantidadChange = (tipo) => {
+        setCantidad((prev) => {
+        if (tipo === 'incrementar') return prev + 1;
+        if (tipo === 'decrementar' && prev > 1) return prev - 1;
+        return prev;
+        });
     };
 
     return (
-        <div className="card-detail">
-            <h2>{detalle.nombre || "NO DISPONIBLE"}</h2>
-            <h3>Precio: ${detalle.precio || "SIN PRECIO"}</h3>
-            <p>Descripción: {detalle.descripcion}</p>
-            {detalle.stock > 0 ? (
-                <p>Quedan {detalle.stock} unidades</p>
-            ) : (
-                <p>Producto agotado!</p>
-            )}
-            {detalle.oferta && <p><b>PRODUCTO EN OFERTA</b></p>}
+        <section className="detalle">
+        <article className="detalle__carta">
+            <img src={producto.imageUrl} alt={producto.nombre} className="detalle__imagen" />
+            <div className="detalle__contenido">
+            <h2 className="detalle__titulo">{producto.nombre}</h2>
+            <p className="detalle__descripcion">{producto.descripcion}</p>
+            <p className="detalle__precio">${producto.precio}</p>
 
-            <Contador initial={1} stock={detalle.stock} onCountChange={handleCountChange} />
-            <button 
-                disabled={detalle.stock === 0} 
-                className="card-detail-btn" 
-                onClick={agregarAlCarrito}
+            <div className="detalle__cantidad">
+                <button onClick={() => handleCantidadChange('decrementar')}>-</button>
+                <span>{cantidad}</span>
+                <button onClick={() => handleCantidadChange('incrementar')}>+</button>
+            </div>
+
+            <button
+                className="detalle__boton"
+                onClick={() => addItem(producto, cantidad)}
             >
                 Agregar al carrito
             </button>
-            <Link to="/">
-                <button className="card-detail-btn">Volver al inicio</button>
-            </Link>
-
-            {showNotification && (
-                <Notification 
-                    message="Producto agregado al carrito" 
-                    onClose={() => setShowNotification(false)} 
-                />
-            )}
-        </div>
+            </div>
+        </article>
+        </section>
     );
 }
 
