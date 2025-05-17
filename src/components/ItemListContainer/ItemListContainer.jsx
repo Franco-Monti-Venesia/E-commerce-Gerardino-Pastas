@@ -3,68 +3,68 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { db } from '../../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import Loader from '../Loader/Loader';
 import { CartContext } from '../../context/CartContext';
+import Loader from '../Loader/Loader.jsx';
 import './ItemListContainer.css';
 
-
 function ItemListContainer() {
-    const [misProductos, setMisProductos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const { categoria } = useParams();
-    const { addItem } = useContext(CartContext);
+  const [misProductos, setMisProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { categoria } = useParams();
+  const { addItem } = useContext(CartContext);
 
-    useEffect(() => {
+  useEffect(() => {
     const obtenerProductos = async () => {
-        setLoading(true);
-        console.log(">>> Categoria recibida:", categoria);
-        try {
+      setLoading(true);
+      try {
         const productosRef = collection(db, 'productos');
         const consulta = categoria
-            ? query(productosRef, where('categoria', '==', categoria))
-            : productosRef;
+          ? query(productosRef, where('categoria', '==', categoria))
+          : productosRef;
         const snapshot = await getDocs(consulta);
-        console.log(">>> Docs obtenidos:", snapshot.size);
         const productosFirebase = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log(">>> Productos mapeados:", productosFirebase);
         setMisProductos(productosFirebase);
-        } catch (error) {
+      } catch (error) {
         console.error('Error al obtener productos:', error);
-        } finally {
+      } finally {
         setLoading(false);
-        }
+      }
     };
+
     obtenerProductos();
-}, [categoria]);
+  }, [categoria]);
 
-
-    return (
+  return (
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
         <section className="productos">
-        {loading ? (
-            <Loader />
-        ) : (
-            misProductos.map(producto => (
+          {misProductos.map((producto) => (
             <article key={producto.id} className="productos__cartas">
+              <img
+                src={producto.imageUrl}
+                alt={producto.nombre}
+                className="cartas__imagen"
+              />
+              <div className="cartas__contenido">
                 <Link to={`/detalle/${producto.id}`}>
-                <img
-                    src={producto.imageUrl}
-                    alt={producto.nombre}
-                    className="cartas__imagen"
-                />
-                <h3 className="productos__titulo">{producto.nombre}</h3>
-                <p className="productos__subtitulo">${producto.precio}</p>
+                  <h3 className="productos__titulo">{producto.nombre}</h3>
+                  <p className="productos__subtitulo">${producto.precio}</p>
                 </Link>
                 <button
-                className="cartas__boton"
-                onClick={() => addItem(producto, 1)}
+                  className="cartas__boton"
+                  onClick={() => addItem(producto, 1)}
                 >
-                Agregar al carrito
+                  COMPRAR
                 </button>
+              </div>
             </article>
-            ))
-        )}
+          ))}
         </section>
-    );
+      )}
+    </>
+  );
 }
 
 export default ItemListContainer;

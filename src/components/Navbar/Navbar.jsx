@@ -37,9 +37,9 @@ function Navbar() {
             {/* Links de navegación */}
             <ul className="nav__ul">
             <li><Link to="/">Inicio</Link></li>
-            <li><Link to="/categoria/remeras">Pastas</Link></li>
-            <li><Link to="/categoria/electro">Bebidas</Link></li>
-            <li><Link to="/categoria/calzado">Agregados</Link></li>
+            <li><Link to="/categoria/Pastas">Pastas</Link></li>
+            <li><Link to="/categoria/Bebida">Bebidas</Link></li>
+            <li><Link to="/categoria/Agregados">Agregados</Link></li>
             </ul>
         </nav>
         </header>
