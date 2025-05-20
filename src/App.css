@@ -22,3 +22,26 @@ html, body, #root {
 .content {
     padding-top: 90px;
 }
+
+/* Estilo personalizado para el toast */
+.toast-custom {
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 1rem;
+}
+
+.toast-body {
+    color: #fff;
+}
+
+/* Responsivo: en pantallas pequeñas lo centra abajo */
+@media (max-width: 768px) {
+    .Toastify__toast-container {
+        bottom: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+    }
+}

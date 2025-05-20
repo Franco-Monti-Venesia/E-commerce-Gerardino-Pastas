@@ -82,3 +82,48 @@
 .detalle__boton:hover {
     background-color: #b8a965;
 }
+
+.detalle__volver {
+    background-color: #cdbf85;
+    color: #555;
+    margin-top: 10px;
+}
+
+.detalle__volver:hover {
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .detalle__carta {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .detalle__imagen {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .detalle__contenido {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .detalle__cantidad {
+        justify-content: center;
+    }
+
+    .detalle__boton {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* Responsive: botón centrado en mobile */
+@media (max-width: 768px) {
+    .detalle__volver {
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+    }
+}

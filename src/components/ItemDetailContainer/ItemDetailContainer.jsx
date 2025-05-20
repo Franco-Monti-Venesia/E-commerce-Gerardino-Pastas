@@ -1,34 +1,45 @@
+// src/components/ItemDetailContainer/ItemDetailContainer.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
-import ItemDetail from '../ItemDetail/ItemDetail';
 import Loader from '../Loader/Loader';
+import ItemDetail from '../ItemDetail/ItemDetail';
 
 function ItemDetailContainer() {
-    const [producto, setProducto] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { id } = useParams();
+  const { id } = useParams();
+  const [producto, setProducto] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchProducto = async () => {
-            try {
-                const docRef = doc(db, 'productos', id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                setProducto({ id: docSnap.id, ...docSnap.data() });
-                }
-            } catch (error) {
-                console.error('Error obteniendo el producto:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const obtenerProducto = async () => {
+      try {
+        const productosRef = collection(db, 'productos');
+        const q = query(productosRef, where('id', '==', parseInt(id)));
 
-    fetchProducto();
-    }, [id]);
+        const querySnapshot = await getDocs(q);
 
-    return loading ? <Loader /> : <ItemDetail producto={producto} />;
+        if (!querySnapshot.empty) {
+          const docSnap = querySnapshot.docs[0];
+          setProducto({ id: docSnap.id, ...docSnap.data() });
+        } else {
+          console.error('No se encontró el producto');
+          setProducto(null);
+        }
+      } catch (error) {
+        console.error('Error al obtener producto:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    obtenerProducto();
+  }, [id]);
+
+  if (loading) return <Loader />;
+  if (!producto) return <p>No se encontró el producto.</p>;
+
+  return <ItemDetail producto={producto} />;
 }
 
 export default ItemDetailContainer;

@@ -9,10 +9,18 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import NotFound from './components/NotFound/NotFound';
 import Checkout from './components/Checkout/Checkout.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        toastClassName="toast-custom"
+        bodyClassName="toast-body"
+      />
       <CartProvider>
         <div className="app-wrapper">
           <Navbar />

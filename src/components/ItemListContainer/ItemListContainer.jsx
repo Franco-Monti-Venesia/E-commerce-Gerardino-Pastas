@@ -1,15 +1,16 @@
 // src/components/ItemListContainer/ItemListContainer.jsx
-import React, { useEffect, useState, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { db } from '../../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import Loader from '../Loader/Loader.jsx';
+import Loader from '../Loader/Loader';
 import './ItemListContainer.css';
 
 function ItemListContainer() {
   const [misProductos, setMisProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { categoria } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const obtenerProductos = async () => {
@@ -20,7 +21,10 @@ function ItemListContainer() {
           ? query(productosRef, where('categoria', '==', categoria))
           : productosRef;
         const snapshot = await getDocs(consulta);
-        const productosFirebase = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const productosFirebase = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setMisProductos(productosFirebase);
       } catch (error) {
         console.error('Error al obtener productos:', error);
@@ -49,11 +53,12 @@ function ItemListContainer() {
                 <h3 className="productos__titulo">{producto.nombre}</h3>
                 <p className="productos__subtitulo">${producto.precio}</p>
               </Link>
-
-              {/* Botón de compra como link al detalle */}
-              <Link to={`/detalle/${producto.id}`} className="cartas__boton">
+              <button
+                className="cartas__boton"
+                onClick={() => navigate(`/detalle/${producto.id}`)}
+              >
                 COMPRAR
-              </Link>
+              </button>
             </article>
           ))}
         </section>
