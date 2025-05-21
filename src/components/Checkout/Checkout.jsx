@@ -1,3 +1,4 @@
+// src/components/Checkout/Checkout.jsx
 import React, { useState, useContext } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
@@ -63,7 +64,8 @@ function Checkout() {
         <div className="checkout-container">
         <h2>Finalizar Compra</h2>
         <form onSubmit={handleSubmit} className="checkout-form">
-            <label> Nombre
+            <label>
+            Nombre
             <input
                 type="text"
                 name="nombre"
@@ -73,7 +75,8 @@ function Checkout() {
                 required
             />
             </label>
-            <label>Email
+            <label>
+            Email
             <input
                 type="email"
                 name="email"
@@ -83,7 +86,8 @@ function Checkout() {
                 required
             />
             </label>
-            <label>Teléfono
+            <label>
+            Teléfono
             <input
                 type="tel"
                 name="telefono"
@@ -93,7 +97,8 @@ function Checkout() {
                 required
             />
             </label>
-            <label>Dirección
+            <label>
+            Dirección
             <input
                 type="text"
                 name="direccion"
