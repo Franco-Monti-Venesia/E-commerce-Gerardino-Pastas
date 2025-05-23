@@ -1,9 +1,12 @@
+// src/components/Loader/Loader.jsx
 import './Loader.css';
 
 function Loader() {
     return (
-        <span className="loader"></span>
+        <div className="loader-wrapper">
+            <span className="loader"></span>
+        </div>
     );
-};
+}
 
 export default Loader;

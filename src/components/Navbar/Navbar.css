@@ -120,3 +120,44 @@ header {
         display: flex;
     }
 }
+
+/* Estilos para el buscador */
+.nav__search-form {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.nav__search-input {
+    padding: 0.5rem;
+    border: 1px solid #928962;
+    border-radius: 4px;
+    width: 100%;
+}
+
+/* Buscador en desktop */
+.nav__search-desktop {
+    display: none;
+    order: 4;
+    margin-left: 1rem;
+}
+
+/* Buscador en mobile dentro del menú */
+.nav__search-mobile {
+    display: none;
+}
+
+/* Mostrar buscador en desktop */
+@media (min-width: 769px) {
+    .nav__search-desktop {
+        display: block;
+    }
+}
+
+/* Mostrar buscador en mobile dentro del menú */
+@media (max-width: 768px) {
+    .nav__search-mobile {
+        display: block;
+        width: 100%;
+    }
+}

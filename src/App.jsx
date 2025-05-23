@@ -10,6 +10,7 @@ import NotFound from './components/NotFound/NotFound';
 import Checkout from './components/Checkout/Checkout.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import { ToastContainer } from 'react-toastify';
+import Busqueda from './components/Busqueda/Busqueda';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Navbar />
           <div className="content">
             <Routes>
+              <Route path="/buscar/:termino" element={<Busqueda />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/" element={<ItemListContainer />} />

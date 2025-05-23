@@ -21,10 +21,16 @@ function ItemListContainer() {
           ? query(productosRef, where('categoria', '==', categoria))
           : productosRef;
         const snapshot = await getDocs(consulta);
-        const productosFirebase = snapshot.docs.map(doc => ({
+        let productosFirebase = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
+
+        // Ordenar por idNum solo si no hay categoría activa
+        if (!categoria) {
+          productosFirebase = productosFirebase.sort((a, b) => (a.idNum || 0) - (b.idNum || 0));
+        }
+
         setMisProductos(productosFirebase);
       } catch (error) {
         console.error('Error al obtener productos:', error);
