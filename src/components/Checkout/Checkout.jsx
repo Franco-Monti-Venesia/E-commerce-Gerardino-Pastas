@@ -1,4 +1,3 @@
-// src/components/Checkout/Checkout.jsx
 import React, { useState, useContext } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
@@ -15,6 +14,8 @@ function Checkout() {
         telefono: '',
         direccion: ''
     });
+    const [resumenCompra, setResumenCompra] = useState([]);
+    const [totalFinal, setTotalFinal] = useState(0);
 
     const navigate = useNavigate();
 
@@ -36,7 +37,9 @@ function Checkout() {
         try {
         const docRef = await addDoc(collection(db, "orders"), order);
         setOrderId(docRef.id);
-        clearCart();
+        setResumenCompra(cart);        // 👈 Guardamos copia del carrito antes de vaciarlo
+        setTotalFinal(total);          // 👈 Guardamos copia del total
+        clearCart();                   // 👈 Luego vaciamos
         } catch (error) {
         console.error("Error al generar la orden:", error);
         }
@@ -53,6 +56,22 @@ function Checkout() {
             <p>Tu orden fue registrada exitosamente. 😄</p>
             <p><strong>Código de seguimiento:</strong> <span>{orderId}</span></p>
             <p>Te enviaremos un email a <strong>{formData.email}</strong> con los detalles.</p>
+
+            {/* ✅ RESUMEN VISUAL DE LA COMPRA */}
+            <div className="resumen-compra">
+            <h3>Resumen de tu compra:</h3>
+            <ul>
+                {resumenCompra.map((item) => (
+                <li key={item.id} className="resumen-item">
+                    <span className="item-nombre">{item.nombre}</span>
+                    <span>{item.quantity} x ${item.precio}</span>
+                    <span>= ${item.quantity * item.precio}</span>
+                </li>
+                ))}
+            </ul>
+            <h4 className="resumen-total">Total: ${totalFinal}</h4>
+            </div>
+
             <button onClick={handleVolverInicio} className="volver-btn">
             Volver al inicio
             </button>
@@ -64,8 +83,7 @@ function Checkout() {
         <div className="checkout-container">
         <h2>Finalizar Compra</h2>
         <form onSubmit={handleSubmit} className="checkout-form">
-            <label>
-            Nombre
+            <label>Nombre
             <input
                 type="text"
                 name="nombre"
@@ -75,8 +93,7 @@ function Checkout() {
                 required
             />
             </label>
-            <label>
-            Email
+            <label>Email
             <input
                 type="email"
                 name="email"
@@ -86,8 +103,7 @@ function Checkout() {
                 required
             />
             </label>
-            <label>
-            Teléfono
+            <label>Teléfono
             <input
                 type="tel"
                 name="telefono"
@@ -97,8 +113,7 @@ function Checkout() {
                 required
             />
             </label>
-            <label>
-            Dirección
+            <label>Dirección
             <input
                 type="text"
                 name="direccion"

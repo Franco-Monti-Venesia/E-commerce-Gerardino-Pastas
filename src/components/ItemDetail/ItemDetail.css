@@ -94,9 +94,14 @@
 }
 
 @media (max-width: 768px) {
+    .detalle {
+        padding: 1rem 2rem;
+    }
+    
     .detalle__carta {
         flex-direction: column;
         align-items: center;
+        padding: 18px;
     }
 
     .detalle__imagen {
