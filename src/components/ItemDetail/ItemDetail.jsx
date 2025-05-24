@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'; // ✅ IMPORTANTE
+import { useNavigate } from 'react-router-dom';
 import './ItemDetail.css';
+import ComboSugerido from '../ComboSugerido/ComboSugerido';
 
 function ItemDetail({ producto }) {
     const { addItem } = useContext(CartContext);
@@ -41,7 +42,6 @@ function ItemDetail({ producto }) {
                         Agregar al carrito
                     </button>
                     
-                    {/* ✅ BOTÓN DE VOLVER AL LISTADO FUNCIONAL */}
                     <button
                         className="detalle__boton detalle__volver"
                         onClick={() => navigate(-1)}
@@ -50,6 +50,7 @@ function ItemDetail({ producto }) {
                     </button>
                 </div>
             </article>
+            <ComboSugerido />
         </section>
     );
 }

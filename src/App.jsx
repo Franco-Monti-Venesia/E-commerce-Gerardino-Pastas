@@ -12,6 +12,7 @@ import Footer from './components/Footer/Footer.jsx';
 import { ToastContainer } from 'react-toastify';
 import Busqueda from './components/Busqueda/Busqueda';
 import 'react-toastify/dist/ReactToastify.css';
+import ComboDetail from './components/ComboDetail/ComboDetail';
 
 function App() {
   return (
@@ -27,12 +28,13 @@ function App() {
           <Navbar />
           <div className="content">
             <Routes>
-              <Route path="/buscar/:termino" element={<Busqueda />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
               <Route path="/" element={<ItemListContainer />} />
               <Route path="/categoria/:categoria" element={<ItemListContainer />} />
               <Route path="/detalle/:id" element={<ItemDetailContainer />} />
+              <Route path="/detalle-combo/:comboId" element={<ComboDetail />} />
+              <Route path="/buscar/:termino" element={<Busqueda />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
@@ -41,6 +43,6 @@ function App() {
       </CartProvider>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

@@ -1,5 +1,3 @@
-/* src/components/Navbar/Navbar.css */
-
 /* Base (desktop) */
 header {
     background-color: #eee;
@@ -15,19 +13,19 @@ header {
     justify-content: space-between;
     height: 90px;
     padding: 0 1rem;
+    gap: 1rem;
 }
 
-/* Hide checkbox input always */
+/* Ocultar checkbox del menú hamburguesa */
 .nav__check {
     display: none;
 }
 
-/* Hamburger hidden on desktop */
 .nav__checkbtn {
     display: none;
 }
 
-/* Logo on left */
+/* Logo */
 .nav__logo-container {
     order: 1;
 }
@@ -35,7 +33,7 @@ header {
     height: 70px;
 }
 
-/* Links centered */
+/* Links */
 .nav__ul {
     order: 2;
     display: flex;
@@ -54,9 +52,24 @@ header {
     transition: 0.3s;
 }
 
-/* Cart on right */
-.nav__cart-container {
+/* Buscador */
+.nav__search-desktop {
     order: 3;
+}
+.nav__search-form,
+.nav__search-desktop {
+    display: flex;
+    justify-content: center;
+}
+.nav__search-input {
+    padding: 0.5rem;
+    border: 1px solid #928962;
+    border-radius: 4px;
+}
+
+/* Carrito */
+.nav__cart-container {
+    order: 4;
 }
 .nav__cart-link {
     position: relative;
@@ -76,7 +89,10 @@ header {
 
 /* MOBILE */
 @media (max-width: 768px) {
-    /* Show hamburger */
+    .nav {
+        flex-wrap: wrap;
+    }
+
     .nav__checkbtn {
         display: block;
         order: 1;
@@ -85,7 +101,6 @@ header {
         color: #928962;
     }
 
-    /* Logo centered */
     .nav__logo-container {
         order: 2;
         flex: 1;
@@ -96,14 +111,12 @@ header {
         height: 50px;
     }
 
-    /* Cart on right */
     .nav__cart-container {
-        order: 3;
+        order: 4;
     }
 
-    /* Hide links initially */
     .nav__ul {
-        order: 4;
+        order: 5;
         display: none;
         position: absolute;
         top: 90px;
@@ -115,49 +128,28 @@ header {
         gap: 1rem;
         padding: 1rem 0;
     }
-    /* Show when checked */
+
     #nav__check:checked ~ .nav__ul {
         display: flex;
     }
+
+    .nav__search-mobile {
+        display: block;
+        width: 100%;
+    }
+
+    .nav__search-desktop {
+        display: none;
+    }
 }
 
-/* Estilos para el buscador */
-.nav__search-form {
-    display: flex;
-    justify-content: center;
-    padding: 0.5rem;
-}
-
-.nav__search-input {
-    padding: 0.5rem;
-    border: 1px solid #928962;
-    border-radius: 4px;
-    width: 100%;
-}
-
-/* Buscador en desktop */
-.nav__search-desktop {
-    display: none;
-    order: 4;
-    margin-left: 1rem;
-}
-
-/* Buscador en mobile dentro del menú */
+/* Buscador móvil */
 .nav__search-mobile {
     display: none;
 }
 
-/* Mostrar buscador en desktop */
 @media (min-width: 769px) {
     .nav__search-desktop {
         display: block;
-    }
-}
-
-/* Mostrar buscador en mobile dentro del menú */
-@media (max-width: 768px) {
-    .nav__search-mobile {
-        display: block;
-        width: 100%;
     }
 }
