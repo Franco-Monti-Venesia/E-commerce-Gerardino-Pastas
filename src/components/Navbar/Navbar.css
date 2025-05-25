@@ -1,3 +1,5 @@
+/* src/components/Navbar/Navbar.css */
+
 /* Base (desktop) */
 header {
     background-color: #eee;
@@ -13,14 +15,14 @@ header {
     justify-content: space-between;
     height: 90px;
     padding: 0 1rem;
-    gap: 1rem;
 }
 
-/* Ocultar checkbox del menú hamburguesa */
+/* Hide checkbox input always */
 .nav__check {
     display: none;
 }
 
+/* Hamburger hidden on desktop */
 .nav__checkbtn {
     display: none;
 }
@@ -52,14 +54,10 @@ header {
     transition: 0.3s;
 }
 
-/* Buscador */
+/* Search */
 .nav__search-desktop {
     order: 3;
-}
-.nav__search-form,
-.nav__search-desktop {
-    display: flex;
-    justify-content: center;
+    margin-right: 1rem;
 }
 .nav__search-input {
     padding: 0.5rem;
@@ -67,7 +65,7 @@ header {
     border-radius: 4px;
 }
 
-/* Carrito */
+/* Cart */
 .nav__cart-container {
     order: 4;
 }
@@ -107,12 +105,13 @@ header {
         display: flex;
         justify-content: center;
     }
-    .nav__logo {
-        height: 50px;
-    }
 
     .nav__cart-container {
         order: 4;
+    }
+
+    .nav__search-desktop {
+        display: none;
     }
 
     .nav__ul {
@@ -136,20 +135,22 @@ header {
     .nav__search-mobile {
         display: block;
         width: 100%;
+        padding: 1rem;
     }
 
-    .nav__search-desktop {
-        display: none;
+    .nav__search-form {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem;
     }
-}
 
-/* Buscador móvil */
-.nav__search-mobile {
-    display: none;
+    .nav__search-input {
+        width: 90%;
+    }
 }
 
 @media (min-width: 769px) {
-    .nav__search-desktop {
-        display: block;
+    .nav__search-mobile {
+        display: none;
     }
 }

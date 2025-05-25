@@ -1,4 +1,3 @@
-// ✅ ComboSugerido.jsx actualizado
 import React from 'react';
 import './ComboSugerido.css';
 import { useNavigate } from 'react-router-dom';
@@ -61,7 +60,7 @@ const ComboSugerido = () => {
             <p className="combo__precio">Total: ${combo.precio}</p>
             <button
               className="combo__boton"
-              onClick={() => navigate(`/detalle-combo/${combo.id}`)}
+              onClick={() => navigate(`/combo/${combo.id}`)}
             >
               COMPRAR
             </button>

@@ -13,6 +13,8 @@ import { ToastContainer } from 'react-toastify';
 import Busqueda from './components/Busqueda/Busqueda';
 import 'react-toastify/dist/ReactToastify.css';
 import ComboDetail from './components/ComboDetail/ComboDetail';
+import PagoExitoso from './components/PagoExitoso/PagoExitoso';
+import PagoError from './components/PagoError/PagoError';
 
 function App() {
   return (
@@ -31,11 +33,13 @@ function App() {
               <Route path="/" element={<ItemListContainer />} />
               <Route path="/categoria/:categoria" element={<ItemListContainer />} />
               <Route path="/detalle/:id" element={<ItemDetailContainer />} />
-              <Route path="/detalle-combo/:comboId" element={<ComboDetail />} />
+              <Route path="/combo/:comboId" element={<ComboDetail />} />
               <Route path="/buscar/:termino" element={<Busqueda />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/pago-exitoso" element={<PagoExitoso />} />
+              <Route path="/pago-error" element={<PagoError />} />
             </Routes>
           </div>
           <Footer />

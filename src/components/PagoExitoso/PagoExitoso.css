@@ -1,0 +1,36 @@
+.pago-exitoso {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.pago-exitoso__caja {
+  background-color: #ffffffcc;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ccc;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.pago-exitoso__caja h2 {
+  color: #4caf50;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pago-exitoso__volver {
+  margin-top: 2rem;
+  background-color: #928962;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.pago-exitoso__volver:hover {
+  background-color: #b8a965;
+}
