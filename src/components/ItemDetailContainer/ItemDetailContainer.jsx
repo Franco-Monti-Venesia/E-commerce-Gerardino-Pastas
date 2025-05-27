@@ -28,6 +28,7 @@ function ItemDetailContainer() {
         }
       } catch (error) {
         console.error('Error al obtener producto:', error);
+        setProducto(null);
       } finally {
         setLoading(false);
       }
