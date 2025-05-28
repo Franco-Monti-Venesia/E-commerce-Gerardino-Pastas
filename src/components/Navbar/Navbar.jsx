@@ -51,7 +51,7 @@ function Navbar() {
                     <li><Link to="/categoria/Pastas">Pastas</Link></li>
                     <li><Link to="/categoria/Bebida">Bebidas</Link></li>
                     <li><Link to="/categoria/Agregados">Agregados</Link></li>
-                    <li><Link to="/categoria/Combos">Combos</Link></li>
+                    <li><Link to="/categoria/Combo">Combos</Link></li>
                 </ul>
 
                 {/* Carrito antes que el buscador */}

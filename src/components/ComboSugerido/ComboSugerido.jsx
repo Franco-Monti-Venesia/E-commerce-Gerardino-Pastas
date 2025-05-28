@@ -1,10 +1,11 @@
+// src/components/ComboSugerido/ComboSugerido.jsx
 import React from 'react';
 import './ComboSugerido.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const combos = [
   {
-    id: 'combo-tallarines',
+    id: 7,
     nombre: 'Combo Tallarines',
     productos: [
       '2 x Tallarines',
@@ -16,7 +17,7 @@ const combos = [
     imagen: 'https://res.cloudinary.com/dkm4b6ejr/image/upload/v1748059459/ChatGPT_Image_23_may_2025_09_28_38_p.m._b323ex.png'
   },
   {
-    id: 'combo-ravioles',
+    id: 8,
     nombre: 'Combo Ravioles',
     productos: [
       '2 x Ravioles',
@@ -28,7 +29,7 @@ const combos = [
     imagen: 'https://res.cloudinary.com/dkm4b6ejr/image/upload/v1748059993/ChatGPT_Image_23_may_2025_09_31_13_p.m._doqm55.png'
   },
   {
-    id: 'combo-noquis',
+    id: 9,
     nombre: 'Combo Ñoquis',
     productos: [
       '2 x Ñoquis',
@@ -43,12 +44,15 @@ const combos = [
 
 const ComboSugerido = () => {
   const navigate = useNavigate();
+  const { id } = useParams(); // 👈 obtenemos el id del combo actual
+
+  const combosFiltrados = combos.filter(combo => combo.id !== parseInt(id));
 
   return (
     <section className="combo">
       <h2 className="combo__titulo">Opciones de combos</h2>
       <div className="combo__contenedor">
-        {combos.map((combo) => (
+        {combosFiltrados.map((combo) => (
           <div key={combo.id} className="combo__card">
             <img src={combo.imagen} alt={combo.nombre} className="combo__imagen" />
             <h3>{combo.nombre}</h3>
@@ -60,7 +64,7 @@ const ComboSugerido = () => {
             <p className="combo__precio">Total: ${combo.precio}</p>
             <button
               className="combo__boton"
-              onClick={() => navigate(`/combo/${combo.id}`)}
+              onClick={() => navigate(`/detalle/${combo.id}`)}
             >
               COMPRAR
             </button>
