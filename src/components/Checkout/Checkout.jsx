@@ -23,12 +23,15 @@ function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('conectando con backend');
 
     try {
-      const response = await axios.post('/api/crear-preferencia', {
+      const response = await axios.post('http://localhost:4000/api/crear-preferencia', {
         carrito: cart,
         comprador: formData
       });
+
+      console.log('respuesta recibida:', response.data);
 
       const preferenceId = response.data.id;
 
