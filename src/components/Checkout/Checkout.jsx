@@ -1,19 +1,22 @@
 // src/components/Checkout/Checkout.jsx
 import React, { useState, useContext } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
-import axios from 'axios';
 
 function Checkout() {
-  const { cart, total } = useContext(CartContext);
+  const { cart, total, clearCart } = useContext(CartContext);
+  const [orderId, setOrderId] = useState('');
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
     telefono: '',
     direccion: ''
   });
-
+  const [resumenCompra, setResumenCompra] = useState([]);
+  const [totalFinal, setTotalFinal] = useState(0);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,30 +26,58 @@ function Checkout() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('conectando con backend');
+
+    const order = {
+      buyer: formData,
+      items: cart,
+      total,
+      date: new Date().toISOString()
+    };
 
     try {
-      const response = await axios.post('http://localhost:4000/api/crear-preferencia', {
-        carrito: cart,
-        comprador: formData
-      });
-
-      console.log('respuesta recibida:', response.data);
-
-      const preferenceId = response.data.id;
-
-      if (preferenceId) {
-        // ✅ Redirección al sandbox de Mercado Pago
-        window.location.href = `https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preferenceId}`;
-      } else {
-        console.error('No se recibió un preferenceId');
-        navigate('/pago-error');
-      }
+      const docRef = await addDoc(collection(db, "orders"), order);
+      setOrderId(docRef.id);
+      setResumenCompra(cart);
+      setTotalFinal(total);
+      clearCart();
     } catch (error) {
-      console.error('❌ Error al crear preferencia:', error.message);
-      navigate('/pago-error');
+      console.error("Error al generar la orden:", error);
     }
   };
+
+  const handleVolverInicio = () => {
+    navigate('/');
+  };
+
+  if (orderId) {
+    return (
+      <div className="checkout-success">
+        <h2>¡Gracias por tu compra, {formData.nombre}!</h2>
+        <p>Tu orden fue registrada exitosamente. 😄</p>
+        <p><strong>Código de seguimiento:</strong> <span>{orderId}</span></p>
+        <p>Te enviaremos un email a <strong>{formData.email}</strong> con los detalles.</p>
+
+        {/* ✅ RESUMEN VISUAL DE LA COMPRA */}
+        <div className="resumen-compra">
+          <h3>Resumen de tu compra:</h3>
+          <ul>
+            {resumenCompra.map((item) => (
+              <li key={item.id} className="resumen-item">
+                <span className="item-nombre">{item.nombre}</span>
+                <span>{item.quantity} x ${item.precio}</span>
+                <span>= ${item.quantity * item.precio}</span>
+              </li>
+            ))}
+          </ul>
+          <h4 className="resumen-total">Total: ${totalFinal}</h4>
+        </div>
+
+        <button onClick={handleVolverInicio} className="volver-btn">
+          Volver al inicio
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="checkout-container">
@@ -92,8 +123,7 @@ function Checkout() {
             required
           />
         </label>
-
-        <button type="submit">Pagar con Mercado Pago</button>
+        <button type="submit">Confirmar compra</button>
       </form>
     </div>
   );
