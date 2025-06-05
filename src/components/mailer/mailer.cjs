@@ -9,10 +9,12 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const enviarEmailCompra = async ({ nombre, email, carrito, orderId }) => {
+const logoUrl = 'https://res.cloudinary.com/dkm4b6ejr/image/upload/v1749165743/logopasta_j7pwih.jpg';
+
+const enviarEmailCompra = async ({ nombre, email, carrito, orderId, total }) => {
   const itemsHtml = carrito.map(item => `
     <tr>
-      <td><img src="${item.imageUrl}" width="80"/></td>
+      <td><img src="${item.imageUrl}" alt="${item.nombre}" style="width: 80px; height: auto;" /></td>
       <td>${item.nombre}</td>
       <td>${item.quantity}</td>
       <td>$${item.precio}</td>
@@ -21,7 +23,7 @@ const enviarEmailCompra = async ({ nombre, email, carrito, orderId }) => {
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif;">
-      <img src="https://i.ibb.co/qDHTp4n/logo-gerardino.png" alt="Logo" style="width: 150px;" />
+      <img src="${logoUrl}" alt="Logo Gerardino" style="width: 150px; height: auto;" />
       <h2>¡Hola ${nombre}, gracias por tu compra!</h2>
       <p><strong>Orden #${orderId}</strong></p>
       <p><strong>Medio de pago:</strong> Mercado Pago</p>
@@ -47,6 +49,8 @@ const enviarEmailCompra = async ({ nombre, email, carrito, orderId }) => {
         </tr>
         ${itemsHtml}
       </table>
+
+      <h3 style="margin-top: 20px;">💰 Total a pagar: <span style="color: green;">$${total}</span></h3>
     </div>
   `;
 

@@ -12,11 +12,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/enviar-email', async (req, res) => {
-  const { nombre, email, carrito, orderId } = req.body;
+  const { nombre, email, carrito, orderId, total } = req.body;
 
   try {
     console.log('📧 Enviando email a:', email);
-    await enviarEmailCompra({ nombre, email, carrito, orderId });
+    await enviarEmailCompra({ nombre, email, carrito, orderId, total });
     console.log('✅ Email enviado con éxito');
     res.status(200).json({ message: 'Email enviado con éxito' });
   } catch (error) {
