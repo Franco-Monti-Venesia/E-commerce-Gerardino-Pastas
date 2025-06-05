@@ -5,6 +5,7 @@ import { db } from '../../firebaseConfig';
 import { CartContext } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
+import axios from 'axios';
 
 function Checkout() {
   const { cart, total, clearCart } = useContext(CartContext);
@@ -35,13 +36,25 @@ function Checkout() {
     };
 
     try {
-      const docRef = await addDoc(collection(db, "orders"), order);
+      const docRef = await addDoc(collection(db, 'orders'), order);
       setOrderId(docRef.id);
       setResumenCompra(cart);
       setTotalFinal(total);
       clearCart();
+
+      // ✅ Enviar email
+      await axios.post('http://localhost:4000/api/enviar-email', {
+        nombre: formData.nombre,
+        email: formData.email,
+        telefono: formData.telefono,
+        direccion: formData.direccion,
+        orderId: docRef.id,
+        carrito: cart,
+        total: total
+      });
+
     } catch (error) {
-      console.error("Error al generar la orden:", error);
+      console.error('❌ Error al generar orden o enviar email:', error);
     }
   };
 
@@ -57,7 +70,6 @@ function Checkout() {
         <p><strong>Código de seguimiento:</strong> <span>{orderId}</span></p>
         <p>Te enviaremos un email a <strong>{formData.email}</strong> con los detalles.</p>
 
-        {/* ✅ RESUMEN VISUAL DE LA COMPRA */}
         <div className="resumen-compra">
           <h3>Resumen de tu compra:</h3>
           <ul>
