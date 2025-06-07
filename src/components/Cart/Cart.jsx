@@ -30,16 +30,18 @@ const Cart = () => {
       <div className="cart-items">
         {cart.map((item) => (
           <div key={item.id} className="cart-item">
-            <h3>{item.nombre || item.title}</h3>
-            <p>Cantidad: {item.quantity}</p>
-            <p>Precio unitario: ${item.precio || item.price}</p>
-            <p>
-              Subtotal: $
-              {((item.precio || item.price) * item.quantity).toFixed(2)}
-            </p>
-            <button onClick={() => removeItem(item.id)} className="btn-remove">
-              Eliminar
-            </button>
+            <div className="cart-item-image">
+              <img src={item.imageUrl} alt={item.nombre} />
+            </div>
+            <div className="cart-item-details">
+              <h4>{item.nombre}</h4>
+              <p>Cantidad: {item.quantity}</p>
+              <p>Precio unitario: ${item.precio}</p>
+              <p>Subtotal: ${(item.precio * item.quantity).toFixed(2)}</p>
+              <button className="remove-btn" onClick={() => removeItem(item.id)}>
+                Eliminar
+              </button>
+            </div>
           </div>
         ))}
       </div>

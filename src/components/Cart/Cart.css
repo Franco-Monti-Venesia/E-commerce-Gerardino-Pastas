@@ -27,7 +27,7 @@
 }
 
 .btn-remove {
-    background: #ff4d4d;
+    background-color: #ff4d4d;
     color: #fff;
     border: none;
     padding: 0.5rem 1rem;
@@ -78,6 +78,51 @@
     border-radius: 4px;
     text-decoration: none;
 }
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.cart-item-image {
+    flex-shrink: 0;
+    margin-right: 15px;
+}
+
+.cart-item-image img {
+    width: 90px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+@media (max-width: 600px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item-image {
+        margin-bottom: 10px;
+    }
+
+    .cart-item-image img {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .cart-item-details {
+        width: 100%;
+    }
+}
+
 
 /* ------------------------------
 RESPONSIVE DESIGN INTEGRADO
@@ -146,4 +191,8 @@ RESPONSIVE DESIGN INTEGRADO
         font-size: 0.95rem;
         padding: 0.6rem;
     }
+}
+
+.btn-remove {
+    background-color: #ff4d4d;
 }
