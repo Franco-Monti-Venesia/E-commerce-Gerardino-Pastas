@@ -1,6 +1,6 @@
-// /api/send-email.js (versión para Vercel Serverless Functions)
+// /api/send-email.mjs
 
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const logoUrl = 'https://res.cloudinary.com/dkm4b6ejr/image/upload/v1749165743/logopasta_j7pwih.jpg';
 
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
@@ -76,4 +76,4 @@ module.exports = async (req, res) => {
     console.error('❌ Error al enviar email:', error);
     res.status(500).json({ message: 'Error al enviar email' });
   }
-};
+}
