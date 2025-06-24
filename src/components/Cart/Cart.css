@@ -193,6 +193,19 @@ RESPONSIVE DESIGN INTEGRADO
     }
 }
 
-.btn-remove {
-    background-color: #ff4d4d;
+.remove-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.remove-btn:hover {
+    background-color: #d32f2f;
 }

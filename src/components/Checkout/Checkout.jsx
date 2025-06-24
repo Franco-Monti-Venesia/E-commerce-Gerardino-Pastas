@@ -43,7 +43,7 @@ function Checkout() {
       clearCart();
 
       // ✅ Enviar email
-      await axios.post('http://localhost:4000/api/enviar-email', {
+      await axios.post('/api/send-email', {
         nombre: formData.nombre,
         email: formData.email,
         telefono: formData.telefono,
