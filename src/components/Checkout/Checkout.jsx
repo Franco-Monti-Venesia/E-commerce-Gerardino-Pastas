@@ -69,6 +69,7 @@ function Checkout() {
         <p>Tu orden fue registrada exitosamente. 😄</p>
         <p><strong>Código de seguimiento:</strong> <span>{orderId}</span></p>
         <p>Te enviaremos un email a <strong>{formData.email}</strong> con los detalles.</p>
+        <p><strong> EL EMAIL PUEDE LLEGAR EN LA BANDEJA DE SPAM! </strong></p>
 
         <div className="resumen-compra">
           <h3>Resumen de tu compra:</h3>
